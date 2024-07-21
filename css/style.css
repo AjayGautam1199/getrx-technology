@@ -113,11 +113,11 @@ header {
 
 .hero img {
     position: absolute;
-    left: 55%;
+    left: 49%;
     top: 420px;
     transform: translate(-50%, -50%);
-    width: 418px; /* Adjust as needed */
-    height: 523px; /* Adjust as needed */
+    width: 500px; /* Adjust as needed */
+    height: 500px; /* Adjust as needed */
 }
 
 .hero h1 {
