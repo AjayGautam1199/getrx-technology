@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Design Pricing Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PCB Design Pricing Calculator</h1>
+        <form id="pricingForm">
+            <label for="width">PCB Width (cm):</label>
+            <input type="number" id="width" name="width" min="0" step="0.01" required>
+
+            <label for="height">PCB Height (cm):</label>
+            <input type="number" id="height" name="height" min="0" step="0.01" required>
+
+            <label for="components">Number of Components:</label>
+            <input type="number" id="components" name="components" min="0" required>
+
+            <label for="revisions">Number of Revisions:</label>
+            <input type="number" id="revisions" name="revisions" min="0" required>
+
+            <button type="button" onclick="calculatePricing()">Calculate</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;">
+            <h3>Pricing Details</h3>
+            <p><strong>Base Cost:</strong> <span id="baseCost">0</span> INR</p>
+            <p><strong>Additional Component Cost:</strong> <span id="componentCost">0</span> INR</p>
+            <p><strong>Revision Cost:</strong> <span id="revisionCost">0</span> INR</p>
+            <p><strong>Total Cost:</strong> <span id="totalCost">0</span> INR</p>
+        </div>
+    </div>
+
+    <script>
+        function calculatePricing() {
+            const width = parseFloat(document.getElementById('width').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const components = parseInt(document.getElementById('components').value);
+            const revisions = parseInt(document.getElementById('revisions').value);
+
+            const baseRatePerSquareCm = 250;
+            const additionalComponentRate = 150;
+            const revisionRate = 1000;
+
+            const area = width * height;
+            const baseCost = area * baseRatePerSquareCm;
+
+            const additionalComponents = Math.max(0, components - 14);
+            const additionalComponentCost = additionalComponents * additionalComponentRate;
+
+            const revisionCost = revisions * revisionRate;
+
+            const totalCost = baseCost + additionalComponentCost + revisionCost;
+
+            document.getElementById('baseCost').textContent = baseCost.toFixed(2);
+            document.getElementById('componentCost').textContent = additionalComponentCost.toFixed(2);
+            document.getElementById('revisionCost').textContent = revisionCost.toFixed(2);
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
