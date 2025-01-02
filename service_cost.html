@@ -59,23 +59,24 @@
             padding: 15px;
             border-radius: 6px;
             font-size: 1rem;
+            position: relative;
         }
         .result h3 {
             font-size: 1.3rem;
         }
-        .generate-invoice-btn {
-            margin-top: 20px;
-            padding: 10px 15px;
+        .invoice-btn {
+            display: none;
+            width: 100%;
+            padding: 10px;
             background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 1.1rem;
             cursor: pointer;
-            text-align: center;
-            display: none;
+            margin-top: 10px;
         }
-        .generate-invoice-btn:hover {
+        .invoice-btn:hover {
             background-color: #218838;
         }
         .policies {
@@ -152,9 +153,8 @@
             <p><strong>Additional Component Cost:</strong> <span id="componentCost">0</span> INR</p>
             <p><strong>Revision Cost:</strong> <span id="revisionCost">0</span> INR</p>
             <p><strong>Total Cost:</strong> <span id="totalCost">0</span> INR</p>
+            <button id="invoiceBtn" class="invoice-btn" onclick="generateInvoice()">Generate Invoice</button>
         </div>
-
-        <button id="generateInvoiceBtn" class="generate-invoice-btn" onclick="generateInvoice()">Generate Invoice</button>
 
         <div id="policies" class="policies">
             <h3>Project Policies</h3>
@@ -203,43 +203,46 @@
             <p>1. We will maintain confidentiality of all client projects and information.</p>
         </div>
     </div>
-   <script>
+
+    <script>
         function calculatePricing() {
             const width = parseFloat(document.getElementById('width').value);
             const height = parseFloat(document.getElementById('height').value);
             const components = parseInt(document.getElementById('components').value);
             const revisions = parseInt(document.getElementById('revisions').value);
 
-        const baseRatePerSquareCm = 250;
-        const additionalComponentRate = 150;
-        const revisionCostPerCycle = 1000;
+            const baseRatePerSquareCm = 250;
+            const additionalComponentRate = 150;
+            const revisionCostPerCycle = 1000;
 
-        // Base cost calculation
-        const area = width * height;
-        const baseCost = area * baseRatePerSquareCm;
+            // Base cost calculation
+            const area = width * height;
+            const baseCost = area * baseRatePerSquareCm;
 
-        // Additional components cost
-        const additionalComponents = components > 14 ? components - 14 : 0;
-        const componentCost = additionalComponents * additionalComponentRate;
+            // Additional components cost
+            const additionalComponents = components > 14 ? components - 14 : 0;
+            const componentCost = additionalComponents * additionalComponentRate;
 
-        // Revision cost
-        const revisionCost = revisions * revisionCostPerCycle;
+            // Revision cost
+            const revisionCost = revisions * revisionCostPerCycle;
 
-        // Total cost
-        const totalCost = baseCost + componentCost + revisionCost;
+            // Total cost calculation
+            const totalCost = baseCost + componentCost + revisionCost;
 
-        // Display the result
-        document.getElementById('baseCost').textContent = baseCost.toFixed(2);
-        document.getElementById('componentCost').textContent = componentCost.toFixed(2);
-        document.getElementById('revisionCost').textContent = revisionCost.toFixed(2);
-        document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+            // Display results
+            document.getElementById('baseCost').textContent = baseCost.toFixed(2);
+            document.getElementById('componentCost').textContent = componentCost.toFixed(2);
+            document.getElementById('revisionCost').textContent = revisionCost.toFixed(2);
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+            document.getElementById('result').style.display = 'block';
 
-        document.getElementById('result').style.display = 'block';
+            // Show invoice button
+            document.getElementById('invoiceBtn').style.display = 'block';
         }
 
         function togglePolicies() {
             const policies = document.getElementById('policies');
-            policies.style.display = policies.style.display === 'none' ? 'block' : 'none';
+            policies.style.display = policies.style.display === 'block' ? 'none' : 'block';
         }
 
         function generateInvoice() {
@@ -248,17 +251,16 @@
             const revisionCost = document.getElementById('revisionCost').textContent;
             const totalCost = document.getElementById('totalCost').textContent;
 
-            const invoiceContent = `
-                <h2>Invoice</h2>
-                <p><strong>Base Cost:</strong> ${baseCost} INR</p>
-                <p><strong>Additional Component Cost:</strong> ${componentCost} INR</p>
-                <p><strong>Revision Cost:</strong> ${revisionCost} INR</p>
-                <p><strong>Total Cost:</strong> ${totalCost} INR</p>
-            `;
-
-            const invoiceWindow = window.open('', 'Invoice', 'width=600,height=400');
-            invoiceWindow.document.write(`<html><head><title>Invoice</title></head><body>${invoiceContent}</body></html>`);
+            const invoiceWindow = window.open('', '_blank');
+            invoiceWindow.document.write('<html><head><title>Invoice</title></head><body>');
+            invoiceWindow.document.write('<h1>Invoice</h1>');
+            invoiceWindow.document.write('<p><strong>Base Cost:</strong> ' + baseCost + ' INR</p>');
+            invoiceWindow.document.write('<p><strong>Additional Component Cost:</strong> ' + componentCost + ' INR</p>');
+            invoiceWindow.document.write('<p><strong>Revision Cost:</strong> ' + revisionCost + ' INR</p>');
+            invoiceWindow.document.write('<p><strong>Total Cost:</strong> ' + totalCost + ' INR</p>');
+            invoiceWindow.document.write('</body></html>');
             invoiceWindow.document.close();
+            invoiceWindow.print();
         }
     </script>
 </body>
