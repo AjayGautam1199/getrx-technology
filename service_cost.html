@@ -59,23 +59,23 @@
             padding: 15px;
             border-radius: 6px;
             font-size: 1rem;
-            position: relative;
         }
         .result h3 {
             font-size: 1.3rem;
         }
-        .invoice-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 8px 12px;
+        .generate-invoice-btn {
+            margin-top: 20px;
+            padding: 10px 15px;
             background-color: #28a745;
             color: white;
             border: none;
             border-radius: 4px;
+            font-size: 1.1rem;
             cursor: pointer;
+            text-align: center;
+            display: none;
         }
-        .invoice-btn:hover {
+        .generate-invoice-btn:hover {
             background-color: #218838;
         }
         .policies {
@@ -147,13 +147,14 @@
         </form>
 
         <div id="result" class="result" style="display: none;">
-            <button class="invoice-btn" onclick="generateInvoice()">Generate Invoice</button>
             <h3>Pricing Details</h3>
             <p><strong>Base Cost:</strong> <span id="baseCost">0</span> INR</p>
             <p><strong>Additional Component Cost:</strong> <span id="componentCost">0</span> INR</p>
             <p><strong>Revision Cost:</strong> <span id="revisionCost">0</span> INR</p>
             <p><strong>Total Cost:</strong> <span id="totalCost">0</span> INR</p>
         </div>
+
+        <button id="generateInvoiceBtn" class="generate-invoice-btn" onclick="generateInvoice()">Generate Invoice</button>
 
         <div id="policies" class="policies">
             <h3>Project Policies</h3>
@@ -202,8 +203,7 @@
             <p>1. We will maintain confidentiality of all client projects and information.</p>
         </div>
     </div>
-
-    <script>
+   <script>
         function calculatePricing() {
             const width = parseFloat(document.getElementById('width').value);
             const height = parseFloat(document.getElementById('height').value);
@@ -263,4 +263,3 @@
     </script>
 </body>
 </html>
-
