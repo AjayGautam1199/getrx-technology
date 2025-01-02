@@ -48,6 +48,7 @@
             border-radius: 6px;
             font-size: 1.2rem;
             cursor: pointer;
+            margin-bottom: 10px;
         }
         button:hover {
             background-color: #0056b3;
@@ -62,7 +63,22 @@
         .result h3 {
             font-size: 1.3rem;
         }
-
+        .policies {
+            display: none;
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 0.9rem;
+        }
+        .policies h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .policies p {
+            margin-bottom: 10px;
+        }
         @media (min-width: 768px) {
             body {
                 display: flex;
@@ -89,6 +105,9 @@
             .result {
                 font-size: 1.1rem;
             }
+            .policies {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -109,6 +128,7 @@
             <input type="number" id="revisions" name="revisions" min="0" required>
 
             <button type="button" onclick="calculatePricing()">Calculate</button>
+            <button type="button" onclick="togglePolicies()">View Policies</button>
         </form>
 
         <div id="result" class="result" style="display: none;">
@@ -117,6 +137,53 @@
             <p><strong>Additional Component Cost:</strong> <span id="componentCost">0</span> INR</p>
             <p><strong>Revision Cost:</strong> <span id="revisionCost">0</span> INR</p>
             <p><strong>Total Cost:</strong> <span id="totalCost">0</span> INR</p>
+        </div>
+
+        <div id="policies" class="policies">
+            <h3>Project Policies</h3>
+            <p><strong>Project Clarification and Communication</strong></p>
+            <p>1. Clients must provide clear project requirements and specifications to ensure better understanding and effective project execution.</p>
+            <p>2. Regular meetings will be scheduled to keep clients updated on project progress.</p>
+
+            <p><strong>Service Offerings and Pricing</strong></p>
+            <p>1. We offer separate services, including:
+                <ul>
+                    <li>Schematic designing</li>
+                    <li>PCB designing</li>
+                    <li>Production file creation</li>
+                    <li>PCB fabrication (optional)</li>
+                </ul>
+            </p>
+            <p>2. Clients can opt-out of PCB fabrication services and only pay for schematic designing, PCB designing, and production file costs.</p>
+            <p>3. PCB fabrication costs range from 15% to 40% of the total project cost, depending on dimensions and component count.</p>
+
+            <p><strong>Payment Terms and Milestones</strong></p>
+            <p>1. Schematic design is a separate phase of development, costing half of the total development cost.</p>
+            <p>2. Upon receiving half of the development cost, we will share the schematic layout and proceed with PCB designing.</p>
+            <p>3. For web development and Android development projects, we will provide UI/UX files (Figma) upon receiving half of the development cost.</p>
+            <p>4. After receiving half of the development cost, we will commence building the website or application.</p>
+
+            <p><strong>Additional Services and Fees</strong></p>
+            <p>1. Hardware assembly is a separate service, and clients will be charged extra based on hardware dimensions and component count.</p>
+            <p>2. Firmware development costs will be determined by the project's complexity.</p>
+
+            <p><strong>Revisions and Edits</strong></p>
+            <p>1. Each revision/edit cycle (after initial design completion) will incur a flat fee of ₹1000. This fee may vary depending on the project's complexity.</p>
+
+            <p><strong>Project Complexity and Pricing</strong></p>
+            <p>1. The final project cost will be determined by the project's complexity, which will be assessed on a case-by-case basis.</p>
+
+            <p><strong>Payment Schedule</strong></p>
+            <p>1. A detailed payment schedule will be provided to clients before project commencement.</p>
+
+            <p><strong>Cancellation Policy</strong></p>
+            <p>1. In the event of project cancellation, clients will be liable for payment of all work completed up to the cancellation date.</p>
+
+            <p><strong>Intellectual Property</strong></p>
+            <p>1. All intellectual property rights for work created by our company will remain with our company until full payment has been received from the client.</p>
+
+            <p><strong>Confidentiality</strong></p>
+            <p>1. We will maintain confidentiality of all client projects and information.</p>
         </div>
     </div>
 
@@ -131,23 +198,29 @@
             const additionalComponentRate = 150;
             const revisionRate = 1000;
 
-            const area = width * height;
+                        const area = width * height;
             const baseCost = area * baseRatePerSquareCm;
 
-            const additionalComponents = Math.max(0, components - 14);
-            const additionalComponentCost = additionalComponents * additionalComponentRate;
+            const additionalComponents = components > 14 ? components - 14 : 0;
+            const componentCost = additionalComponents * additionalComponentRate;
 
             const revisionCost = revisions * revisionRate;
 
-            const totalCost = baseCost + additionalComponentCost + revisionCost;
+            const totalCost = baseCost + componentCost + revisionCost;
 
             document.getElementById('baseCost').textContent = baseCost.toFixed(2);
-            document.getElementById('componentCost').textContent = additionalComponentCost.toFixed(2);
+            document.getElementById('componentCost').textContent = componentCost.toFixed(2);
             document.getElementById('revisionCost').textContent = revisionCost.toFixed(2);
             document.getElementById('totalCost').textContent = totalCost.toFixed(2);
 
             document.getElementById('result').style.display = 'block';
         }
+
+        function togglePolicies() {
+            const policiesDiv = document.getElementById('policies');
+            policiesDiv.style.display = policiesDiv.style.display === 'none' || policiesDiv.style.display === '' ? 'block' : 'none';
+        }
     </script>
 </body>
 </html>
+
