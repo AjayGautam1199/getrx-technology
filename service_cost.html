@@ -59,9 +59,24 @@
             padding: 15px;
             border-radius: 6px;
             font-size: 1rem;
+            position: relative;
         }
         .result h3 {
             font-size: 1.3rem;
+        }
+        .invoice-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .invoice-btn:hover {
+            background-color: #218838;
         }
         .policies {
             display: none;
@@ -132,6 +147,7 @@
         </form>
 
         <div id="result" class="result" style="display: none;">
+            <button class="invoice-btn" onclick="generateInvoice()">Generate Invoice</button>
             <h3>Pricing Details</h3>
             <p><strong>Base Cost:</strong> <span id="baseCost">0</span> INR</p>
             <p><strong>Additional Component Cost:</strong> <span id="componentCost">0</span> INR</p>
@@ -194,31 +210,55 @@
             const components = parseInt(document.getElementById('components').value);
             const revisions = parseInt(document.getElementById('revisions').value);
 
-            const baseRatePerSquareCm = 250;
-            const additionalComponentRate = 150;
-            const revisionRate = 1000;
+        const baseRatePerSquareCm = 250;
+        const additionalComponentRate = 150;
+        const revisionCostPerCycle = 1000;
 
-                        const area = width * height;
-            const baseCost = area * baseRatePerSquareCm;
+        // Base cost calculation
+        const area = width * height;
+        const baseCost = area * baseRatePerSquareCm;
 
-            const additionalComponents = components > 14 ? components - 14 : 0;
-            const componentCost = additionalComponents * additionalComponentRate;
+        // Additional components cost
+        const additionalComponents = components > 14 ? components - 14 : 0;
+        const componentCost = additionalComponents * additionalComponentRate;
 
-            const revisionCost = revisions * revisionRate;
+        // Revision cost
+        const revisionCost = revisions * revisionCostPerCycle;
 
-            const totalCost = baseCost + componentCost + revisionCost;
+        // Total cost
+        const totalCost = baseCost + componentCost + revisionCost;
 
-            document.getElementById('baseCost').textContent = baseCost.toFixed(2);
-            document.getElementById('componentCost').textContent = componentCost.toFixed(2);
-            document.getElementById('revisionCost').textContent = revisionCost.toFixed(2);
-            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+        // Display the result
+        document.getElementById('baseCost').textContent = baseCost.toFixed(2);
+        document.getElementById('componentCost').textContent = componentCost.toFixed(2);
+        document.getElementById('revisionCost').textContent = revisionCost.toFixed(2);
+        document.getElementById('totalCost').textContent = totalCost.toFixed(2);
 
-            document.getElementById('result').style.display = 'block';
+        document.getElementById('result').style.display = 'block';
         }
 
         function togglePolicies() {
-            const policiesDiv = document.getElementById('policies');
-            policiesDiv.style.display = policiesDiv.style.display === 'none' || policiesDiv.style.display === '' ? 'block' : 'none';
+            const policies = document.getElementById('policies');
+            policies.style.display = policies.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function generateInvoice() {
+            const baseCost = document.getElementById('baseCost').textContent;
+            const componentCost = document.getElementById('componentCost').textContent;
+            const revisionCost = document.getElementById('revisionCost').textContent;
+            const totalCost = document.getElementById('totalCost').textContent;
+
+            const invoiceContent = `
+                <h2>Invoice</h2>
+                <p><strong>Base Cost:</strong> ${baseCost} INR</p>
+                <p><strong>Additional Component Cost:</strong> ${componentCost} INR</p>
+                <p><strong>Revision Cost:</strong> ${revisionCost} INR</p>
+                <p><strong>Total Cost:</strong> ${totalCost} INR</p>
+            `;
+
+            const invoiceWindow = window.open('', 'Invoice', 'width=600,height=400');
+            invoiceWindow.document.write(`<html><head><title>Invoice</title></head><body>${invoiceContent}</body></html>`);
+            invoiceWindow.document.close();
         }
     </script>
 </body>
