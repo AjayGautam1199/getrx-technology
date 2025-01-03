@@ -246,22 +246,113 @@
         }
 
         function generateInvoice() {
-            const baseCost = document.getElementById('baseCost').textContent;
-            const componentCost = document.getElementById('componentCost').textContent;
-            const revisionCost = document.getElementById('revisionCost').textContent;
-            const totalCost = document.getElementById('totalCost').textContent;
+    const baseCost = document.getElementById('baseCost').textContent;
+    const componentCost = document.getElementById('componentCost').textContent;
+    const revisionCost = document.getElementById('revisionCost').textContent;
+    const totalCost = document.getElementById('totalCost').textContent;
+    const invoiceDate = new Date().toLocaleDateString();
 
-            const invoiceWindow = window.open('', '_blank');
-            invoiceWindow.document.write('<html><head><title>Invoice</title></head><body>');
-            invoiceWindow.document.write('<h1>Invoice</h1>');
-            invoiceWindow.document.write('<p><strong>Base Cost:</strong> ' + baseCost + ' INR</p>');
-            invoiceWindow.document.write('<p><strong>Additional Component Cost:</strong> ' + componentCost + ' INR</p>');
-            invoiceWindow.document.write('<p><strong>Revision Cost:</strong> ' + revisionCost + ' INR</p>');
-            invoiceWindow.document.write('<p><strong>Total Cost:</strong> ' + totalCost + ' INR</p>');
-            invoiceWindow.document.write('</body></html>');
-            invoiceWindow.document.close();
-            invoiceWindow.print();
-        }
+    const invoiceWindow = window.open('', '_blank');
+    invoiceWindow.document.write(`
+        <html>
+        <head>
+            <title>Invoice</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 20px;
+                    color: #333;
+                }
+                .invoice-container {
+                    border: 1px solid #ddd;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    margin: auto;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                }
+                h1 {
+                    text-align: center;
+                    color: #4CAF50;
+                    margin-bottom: 20px;
+                }
+                .invoice-date {
+                    text-align: right;
+                    font-size: 14px;
+                    margin-bottom: 20px;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-bottom: 20px;
+                }
+                table, th, td {
+                    border: 1px solid #ddd;
+                }
+                th, td {
+                    padding: 12px;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f4f4f4;
+                }
+                .total-row {
+                    font-weight: bold;
+                    color: #4CAF50;
+                }
+                .footer {
+                    text-align: center;
+                    margin-top: 20px;
+                    font-size: 12px;
+                    color: #999;
+                }
+                hr {
+                    margin: 20px 0;
+                    border: none;
+                    border-top: 1px solid #ddd;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="invoice-container">
+                <h1>Invoice</h1>
+                <div class="invoice-date">Date: ${invoiceDate}</div>
+                <hr />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Cost (INR)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Base Cost</td>
+                            <td>${baseCost}</td>
+                        </tr>
+                        <tr>
+                            <td>Additional Component Cost</td>
+                            <td>${componentCost}</td>
+                        </tr>
+                        <tr>
+                            <td>Revision Cost</td>
+                            <td>${revisionCost}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>Total Cost</td>
+                            <td>${totalCost}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr />
+                <div class="footer">Thank you for your business!</div>
+            </div>
+        </body>
+        </html>
+    `);
+    invoiceWindow.document.close();
+    invoiceWindow.print();
+}
     </script>
 </body>
 </html>
