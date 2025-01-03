@@ -42,17 +42,17 @@ body {
 
 /* Navigation Styling */
 .main-navigation {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     width: 300px;
-    height: 100vh;
+    height: auto; /* 100vh */
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 1000;
     padding-top: 80px;
     text-align: center;
     transform: translateX(100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.6s ease;
 }
 
 .main-navigation ul {
@@ -174,9 +174,7 @@ header {
     display: none;
 }
     
-    
-    
-    
+  
 .option {
     flex: 0 0 auto; /* Ensure the items do not shrink */
     position: relative;
@@ -290,8 +288,27 @@ header {
 .option .label .info .sub {
     transition-delay: .1s;
 }
+
+.container2 {
+    text-align: center;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+}
+
+.container2 h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+.container1 p {
+    font-size: 18px;
+}
+.container2 p {
+    font-size: 18px;
+}
+
 /* Responsive styles -------------------------------------------------------------------*/
-@media screen and (max-width: 718px) {
+@media screen and (max-width: 768px) {
      .options {
         min-width: 520px;
     }
@@ -354,9 +371,28 @@ header {
         text-align: center;
         font-size: 12px;
     }
+    .container2 {
+        text-align: center;
+        margin: 50px auto;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 20px;
+        width: 520px;
+    }
+
+    .container2 h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+    .container1 p {
+        font-size: 18px;
+    }
+    .container2 p {
+        font-size: 18px;
+    }
 }
 
-@media screen and (max-width: 638px) {
+/*
+ @media screen and (max-width: 638px) {
       .options {
         min-width: 630px;
     }
@@ -369,7 +405,7 @@ header {
     }
     
     .option:not(.active) {
-        transform: scale(0.8); /* Scale down inactive cards */
+        transform: scale(0.8); 
     }
     .hero h1 {
         font-size: 48px;
@@ -434,7 +470,7 @@ header {
     }
     
     .option:not(.active) {
-        transform: scale(0.8); /* Scale down inactive cards */
+        transform: scale(0.8); 
     }
     .hero h1 {
         font-size: 48px;
@@ -546,47 +582,10 @@ header {
     }
     
     .option:not(.active) {
-        transform: scale(0.8); /* Scale down inactive cards */
+        transform: scale(0.8); 
     }
-}
-/*----------------------------------------------------*/
-.container2 {
-    text-align: center;
-    margin: 50px auto;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 20px;
-}
+} */
 
-.container2 h2 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-.container1 p {
-    font-size: 18px;
-}
-.container2 p {
-    font-size: 18px;
-}
-@media (max-width: 768px){
-    .container2 {
-        text-align: center;
-        margin: 50px auto;
-        background-color: rgba(255, 255, 255, 0.5);
-        padding: 20px;
-        width: 520px;
-    }
-
-    .container2 h2 {
-        font-size: 36px;
-        margin-bottom: 20px;
-    }
-    .container1 p {
-        font-size: 18px;
-    }
-    .container2 p {
-        font-size: 18px;
-    }
-}
 /* Footer Styling */
 footer {
     background-color: rgba(0, 0, 0, 0.5);
