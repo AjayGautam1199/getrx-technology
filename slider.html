@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Responsive Image Slider with Titles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f4;
+            margin: 0;
+        }
+        .slider-container {
+            width: 90vw;
+            max-width: 900px;
+            height: 80vh; /* Increased height to accommodate titles */
+            max-height: 600px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+        .slide {
+            min-width: 100%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+        }
+        .slider img {
+            width: 100%;
+            height: auto;
+            max-height: 70vh; /* Adjusted to leave space for the title */
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        .slide-title {
+            margin-top: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+        .buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .buttons button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+        .buttons button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .buttons button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <!-- Slides will be added dynamically -->
+        </div>
+        <div class="buttons">
+            <button id="prev" aria-label="Previous Slide">❮</button>
+            <button id="next" aria-label="Next Slide">❯</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const projects = [
+                { images: ["images/1/1.png", "images/1/2.png"], title: "Project 1" },
+                { images: ["images/2/1.png", "images/2/2.png"], title: "Project 2" },
+                { images: ["images/3/1.png", "images/3/2.png"], title: "Project 3" },
+                { images: ["images/4/1.png", "images/4/2.png"], title: "Project 4" },
+                { images: ["images/5/1.png", "images/5/2.png"], title: "Project 5" },
+                { images: ["images/6/1.png", "images/6/2.png"], title: "Project 6" },
+                { images: ["images/7/1.png", "images/7/2.png"], title: "Project 7" },
+                { images: ["images/8/1.png", "images/8/2.png"], title: "Project 8" },
+                { images: ["images/9/1.png", "images/9/2.png"], title: "Project 9" },
+                { images: ["images/10/1.webp", "images/10/2.webp"], title: "Project 10" }
+            ];
+
+            const slider = document.getElementById("slider");
+            let currentIndex = 0;
+            let startX = 0;
+            let isDragging = false;
+            let autoPlayInterval;
+
+            // Preload images
+            function preloadImages(projects) {
+                projects.forEach(project => {
+                    project.images.forEach(image => {
+                        const img = new Image();
+                        img.src = image;
+                    });
+                });
+            }
+
+            preloadImages(projects);
+
+            // Create slides
+            projects.forEach((project, index) => {
+                const slide = document.createElement("div");
+                slide.classList.add("slide");
+                if (index === 0) slide.classList.add("active");
+
+                const img = document.createElement("img");
+                img.src = project.images[0];
+                img.alt = `Slide ${index + 1}`;
+                slide.appendChild(img);
+
+                const title = document.createElement("div");
+                title.classList.add("slide-title");
+                title.textContent = project.title;
+                slide.appendChild(title);
+
+                slide.addEventListener("click", () => {
+                    img.src = img.src.includes(project.images[0]) ? project.images[1] : project.images[0];
+                });
+
+                slider.appendChild(slide);
+            });
+
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                document.querySelectorAll(".slide").forEach((slide, index) => {
+                    slide.classList.toggle("active", index === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                if (currentIndex < projects.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                updateSlider();
+            }
+
+            function prevSlide() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = projects.length - 1;
+                }
+                updateSlider();
+            }
+
+            document.getElementById("next").addEventListener("click", nextSlide);
+            document.getElementById("prev").addEventListener("click", prevSlide);
+
+            // Keyboard navigation
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "ArrowRight") nextSlide();
+                if (e.key === "ArrowLeft") prevSlide();
+            });
+
+            // Touch and Mouse Swipe Events
+            slider.addEventListener("touchstart", (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+
+            slider.addEventListener("touchmove", (e) => {
+                if (!isDragging) return;
+                let diff = startX - e.touches[0].clientX;
+                if (diff > 30) nextSlide();
+                if (diff < -30) prevSlide();
+                isDragging = false;
+            });
+
+            slider.addEventListener("touchend", () => {
+                isDragging = false;
+            });
+
+            // Mouse drag for laptops
+            slider.addEventListener("mousedown", (e) => {
+                startX = e.clientX;
+                isDragging = true;
+            });
+
+            slider.addEventListener("mousemove", (e) => {
+                if (!isDragging) return;
+                let diff = startX - e.clientX;
+                if (diff > 30) nextSlide();
+                if (diff < -30) prevSlide();
+                isDragging = false;
+            });
+
+            slider.addEventListener("mouseup", () => {
+                isDragging = false;
+            });
+
+            // Auto-play feature
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextSlide, 3000);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+
+            slider.addEventListener("mouseenter", stopAutoPlay);
+            slider.addEventListener("mouseleave", startAutoPlay);
+            startAutoPlay();
+        });
+    </script>
+</body>
+</html>
