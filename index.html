@@ -54,13 +54,12 @@
 
         .logo img {
             height: 60px;
-            max-width: 100%;
             filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             transition: transform 0.3s ease;
         }
 
@@ -68,7 +67,7 @@
             color: var(--text-light);
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             padding: 0.5rem 0;
             position: relative;
         }
@@ -91,31 +90,34 @@
         .menu-toggle {
             display: none;
             background: none;
-            border: 2px solid var(--primary-color);
+            border: 5px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 0.5rem;
-            border-radius: 8px;
+            padding: 0.8rem;
+            border-radius: 14px;
             cursor: pointer;
             z-index: 1001;
+            margin: 15px;
+            margin-left: 8px;
         }
 
         /* Hero Section */
         .hero {
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2rem 5%;
+            padding: 2rem;
+            margin-top: 80px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
         }
 
         .hero h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2rem, 8vw, 4rem);
+            font-size: 4rem;
             margin-bottom: 1rem;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
@@ -124,21 +126,15 @@
         }
 
         .hero h2 {
-            font-size: clamp(1rem, 4vw, 1.8rem);
+            font-size: 1.8rem;
             color: var(--text-light);
             margin-bottom: 2rem;
-        }
-
-        .hero img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 2rem;
         }
 
         /* Projects Slider */
         .slider-container {
             position: relative;
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             height: 600px;
             margin: 4rem auto;
@@ -148,14 +144,12 @@
             background: linear-gradient(45deg, rgba(0, 0, 0, 0.2), rgba(0, 255, 255, 0.05));
             text-align: center;
         }
-
         .slider-container h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-size: 2rem;
             color: var(--primary-color);
-            padding: 2rem 0;
+            margin-bottom: -50px;
         }
-
         .slider {
             display: flex;
             height: 100%;
@@ -169,9 +163,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 3rem;
             opacity: 0.5;
             transition: opacity 0.5s ease;
+            position: relative;
         }
 
         .slide.active {
@@ -179,8 +174,8 @@
         }
 
         .slide img {
-            max-width: 100%;
-            max-height: 70%;
+            width: 100%;
+            height: 80%;
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
@@ -188,7 +183,7 @@
 
         .slide-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-size: 2rem;
             color: var(--primary-color);
             margin-top: 1rem;
         }
@@ -199,7 +194,7 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
-            padding: 0 1rem;
+            padding: 0 2rem;
             transform: translateY(-50%);
         }
 
@@ -207,18 +202,24 @@
             background: rgba(0, 255, 255, 0.15);
             border: 1px solid var(--primary-color);
             color: var(--primary-color);
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
+            backdrop-filter: blur(5px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slider-nav button:hover {
+            background: rgba(0, 255, 255, 0.25);
+            box-shadow: 0 0 15px var(--primary-color);
         }
 
         /* Mission Section */
         .mission {
-            max-width: 90%;
+            max-width: 1000px;
             margin: 4rem auto;
-            padding: 2rem;
+            padding: 3rem;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -228,16 +229,16 @@
 
         .mission h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            font-size: 2.5rem;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
         }
 
         /* Contact Form */
         .contact-section {
-            max-width: 90%;
+            max-width: 1200px;
             margin: 4rem auto;
-            padding: 2rem;
+            padding: 3rem;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -245,17 +246,17 @@
 
         .contact-form {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(0, 255, 255, 0.2);
             border-radius: 5px;
@@ -263,18 +264,30 @@
             transition: all 0.3s;
         }
 
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            outline: none;
+        }
+
         #input-submit {
             background: var(--secondary-color);
             border: none;
-            padding: 1rem;
+            padding: 1rem 2rem;
+            width: 100%;
             font-family: 'Orbitron', sans-serif;
-            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #input-submit:hover {
+            background: var(--primary-color);
+            box-shadow: 0 0 15px var(--secondary-color);
         }
 
         /* Footer */
         footer {
             background: rgba(10, 10, 46, 0.9);
-            padding: 2rem 1rem;
+            padding: 4rem 2rem;
             margin-top: 4rem;
             border-top: 1px solid rgba(0, 255, 255, 0.2);
             text-align: center;
@@ -282,84 +295,82 @@
 
         .social-links {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        /* Media Queries */
-        @media (min-width: 768px) {
-            .nav-links {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: none;
-            }
-
-            .contact-form {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .slider-container {
-                height: 600px;
-            }
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 767px) {
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
             }
-
+            .logo img {
+            height: 45px;
+            width: 220px;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
+            }
             .nav-links {
                 position: fixed;
                 top: 0;
                 right: -100%;
                 height: 100vh;
-                width: 80%;
+                width: 70%;
                 flex-direction: column;
                 background: rgba(10, 10, 46, 0.95);
-                padding: 4rem 2rem 2rem;
+                backdrop-filter: blur(10px);
+                padding: 2rem;
                 z-index: 999;
-                transition: right 0.3s ease;
             }
 
             .nav-links.active {
                 right: 0;
             }
 
-            .logo img {
-                height: 45px;
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 1.2rem;
             }
 
             .slider-container {
-                height: 450px;
+                height: 400px;
             }
 
             .slide {
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 1rem;
+                padding: 1.5rem;
             }
 
-            .slider-container {
-                height: 350px;
-            }
-
-            .slider-nav button {
-                width: 35px;
-                height: 35px;
+            .contact-form {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HTML content remains largely the same, only adjusting structure where needed -->
     <div id="particles-js"></div>
 
     <header>
@@ -376,11 +387,87 @@
         </nav>
     </header>
 
-    <!-- Rest of the HTML remains unchanged -->
+    <main>
+        <section id="home" class="hero">
+            <h1>GETRX Technology</h1>
+            <h2>Pioneering Embedded Hardware Solutions</h2>
+            <img src="images/Bionic.png" alt="Hero Image">
+        </section>
 
+        <section id="projects" class="slider-container">
+            <h2>Featured Projects</h2>
+            <div class="slider">
+                <!-- Slides populated by JavaScript -->
+            </div>
+            <div class="slider-nav">
+                <button class="prev">←</button>
+                <button class="next">→</button>
+            </div>
+        </section>
+
+        <section id="mission" class="mission">
+            <h2>Our Mission</h2>
+            <p>Delivering innovative embedded systems with precision engineering, tailored to transform your ideas into reality.</p>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2>Get in Touch</h2>
+            <form action="https://api.web3forms.com/submit" method="POST" id="contact-form" class="cf">
+                <input type="hidden" name="access_key" value="228d7b3d-1664-4700-8134-5d42bcc2210b">
+                
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="Full Name" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+                </div>
+                
+                <div class="form-group">
+                    <select class="form-control" name="budget">
+                        <option value="">Budget Range</option>
+                        <option>10,000 Rs</option>
+                        <option>20,000 Rs</option>
+                        <option>50,000 Rs</option>
+                        <option>1 LAKH Rs</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <input type="text" class="form-control" name="subject" placeholder="Project Title" required>
+                </div>
+                
+                <div class="form-group">
+                    <textarea class="form-control" name="message" rows="4" placeholder="Project Details" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox">
+                        <input type="checkbox" name="terms" required> 
+                        <label class="checkbox-label" for="terms">
+                            I agree to the terms and conditions
+                    </label>
+                </div>
+
+                <button type="submit" id="input-submit">Submit Proposal</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2025 GETRX Technology. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // JavaScript remains mostly unchanged, with minor optimizations
-        // Particles.js Initialization (unchanged)
+        // Particles.js Initialization
         particlesJS('particles-js', {
             particles: {
                 number: { value: 80 },
@@ -410,20 +497,11 @@
         });
 
         // Mobile Menu Toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        document.querySelector('.menu-toggle').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
         });
 
-        // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Image Slider Functionality (unchanged except for minor cleanup)
+        // Image Slider Functionality
         document.addEventListener("DOMContentLoaded", function () {
             const projects = [
                 { images: ["images/1/1.png", "images/1/2.png"], title: "32×80 Px Matrix RGB Display" },
@@ -444,6 +522,7 @@
             let currentIndex = 0;
             let isAnimating = false;
 
+            // Initialize Slider
             function initSlider() {
                 slider.innerHTML = '';
                 projects.forEach((project, index) => {
@@ -458,36 +537,50 @@
                 });
             }
 
-            function toggleImage(slide, project) {
+             // Image Toggle Function
+             function toggleImage(slide, project) {
                 const img = slide.querySelector('img');
-                img.src = img.src.includes(project.images[0]) ? project.images[1] : project.images[0];
+                img.src = img.src.includes(project.images[0]) 
+                    ? project.images[1] 
+                    : project.images[0];
             }
 
+            // Smooth Slider Navigation
             function navigate(direction) {
                 if (isAnimating) return;
                 isAnimating = true;
+                
                 currentIndex = (currentIndex + direction + projects.length) % projects.length;
                 slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
                 setTimeout(() => {
-                    document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
+                    document.querySelectorAll('.slide').forEach(slide => {
+                        slide.classList.remove('active');
+                    });
                     slider.children[currentIndex].classList.add('active');
                     isAnimating = false;
                 }, 500);
             }
 
+            // Event Listeners
             prevBtn.addEventListener('click', () => navigate(-1));
             nextBtn.addEventListener('click', () => navigate(1));
-
+            
+            // Touch Swipe Handling
             let touchStartX = 0;
             slider.addEventListener('touchstart', e => {
                 touchStartX = e.touches[0].clientX;
             });
+            
             slider.addEventListener('touchend', e => {
                 const touchEndX = e.changedTouches[0].clientX;
                 const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) navigate(diff > 0 ? 1 : -1);
+                if (Math.abs(diff) > 50) {
+                    navigate(diff > 0 ? 1 : -1);
+                }
             });
 
+            // Initialize
             initSlider();
         });
     </script>
